@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/tests
+END
+messaging_testcase.inc
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/tests/messaging_testcase.inc
+END
+messaging_api.test
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/tests/messaging_api.test
+END
+messaging_methods.test
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/tests/messaging_methods.test
+END

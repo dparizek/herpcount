@@ -1,0 +1,101 @@
+10
+
+dir
+466
+http://ccp.arl.arizona.edu/svn/akshens/trunk/akshenweb/sites/all/modules/userpoints_contrib
+http://ccp.arl.arizona.edu/svn/akshens
+
+
+
+2011-02-12T18:33:18.331666Z
+307
+dparizek
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+e2268d68-9d0b-4111-b000-d98666bd37a8
+
+userpoints_nodelimit
+dir
+
+userpoints_register
+dir
+
+userpoints_badges
+dir
+
+translations
+dir
+
+userpoints_retroactive
+dir
+
+userpoints_modr8
+dir
+
+userpoints_pageviews
+dir
+
+userpoints_revision
+dir
+
+userpoints_commentspertype
+dir
+
+userpoints_invite
+dir
+
+userpoints_no_negative
+dir
+
+userpoints_admin_email
+dir
+
+userpoints_role
+dir
+
+user2userpoints
+dir
+
+userpoints_cap
+dir
+
+LICENSE.txt
+file
+
+
+
+
+2011-01-24T18:25:45.000000Z
+6016b225063da3c521d2eef5d23fd6b1
+2011-01-24T18:16:51.923987Z
+226
+dparizek
+has-props
+
+userpoints_download
+dir
+
+votingpoints
+dir
+
+userpoints_flag
+dir
+
+userpoints_reset
+dir
+
+userpoints_role_exempt
+dir
+

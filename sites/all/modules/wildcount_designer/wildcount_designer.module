@@ -1,0 +1,40 @@
+<?php
+///Users/dave/Sites/mysite/sites/all/modules/wildcount_designer/wildcount_designer.module
+
+function wildcount_designer_menu() {
+
+    $items['user/%user/wildcount_designer/overview'] = array(
+    	 'title' => 'Project App Designer',
+    	 'description' => 'Design a custom mobile app to work with WildCount.org.',
+   		 'page callback' => 'wildcount_designer_mygroup',
+   		 'page arguments' => array(1, TRUE),
+   		 'access callback' => '_wildcount_designer_user_access',
+    	 'access arguments' => array(1),
+   		 'type' => MENU_LOCAL_TASK,
+  );
+
+		return $items;
+}
+
+/**
+ * Access callback for user/%user/my-wildcount_designer-group
+ */
+function _wildcount_designer_user_access($account) {
+  return user_view_access($account) && user_access('use wildcount designer');
+}
+
+function wildcount_designer_mygroup($account) {
+	//global $user;
+
+ 	drupal_set_title(check_plain($account->name));
+    //$output = drupal_get_form('wildcount_designer_mygroupform', $account);
+    $output = "<h1>Made it to here.</h1>";
+	return $output;
+}
+
+function wildcount_designer_perm() {
+	return array('use wildcount designer');
+}
+
+
+

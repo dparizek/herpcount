@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_ui
+END
+notifications_ui.info
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_ui/notifications_ui.info
+END
+notifications_ui.module
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_ui/notifications_ui.module
+END
+notifications_ui.install
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_ui/notifications_ui.install
+END
+notifications_ui.pages.inc
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_ui/notifications_ui.pages.inc
+END

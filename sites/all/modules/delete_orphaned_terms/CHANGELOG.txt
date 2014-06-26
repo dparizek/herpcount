@@ -1,0 +1,24 @@
+delete_orphaned_terms x.x-x.x, xxxx-xx-xx
+-----------------------------------------
+
+
+delete_orphaned_terms 6.x-2.x, 2010-02-27
+-----------------------------------------
+redone UI, now on separate pages and using tabs
+implemented update function to handle variables from 1.x release
+updated README
+adding CSS files and CHANGELOG.txt
+#726654: by jmroth: adding many new features
+  I'm joining forces with this module, effectively providing the following:
+  * Cron support:
+    Whitelist/blacklist
+    option to only prune tag based vocabularies
+    option to remove empty vocabularies
+    failsafe
+  * Admin page
+  * addition of "all" to manual pruning
+  * simulation of what would be removed for manual and automatic modes
+
+delete_orphaned_terms 6.x-1.x, 2009-10-26
+-----------------------------------------
+initial development release

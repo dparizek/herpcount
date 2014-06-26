@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/LICENSE.txt
+END
+delete_orphaned_terms.module
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/delete_orphaned_terms.module
+END
+delete_orphaned_terms.install
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/delete_orphaned_terms.install
+END
+delete_orphaned_terms-rtl.css
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/delete_orphaned_terms-rtl.css
+END
+delete_orphaned_terms.css
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/delete_orphaned_terms.css
+END
+CHANGELOG.txt
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/CHANGELOG.txt
+END
+delete_orphaned_terms.info
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/delete_orphaned_terms.info
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/akshens/!svn/ver/439/trunk/akshenweb/sites/all/modules/delete_orphaned_terms/README.txt
+END

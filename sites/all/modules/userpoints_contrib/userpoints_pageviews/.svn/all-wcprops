@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/akshens/!svn/ver/307/trunk/akshenweb/sites/all/modules/userpoints_contrib/userpoints_pageviews
+END
+userpoints_pageviews.info
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/userpoints_pageviews/userpoints_pageviews.info
+END
+userpoints_pageviews.module
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/userpoints_pageviews/userpoints_pageviews.module
+END
+userpoints_pageviews.install
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/userpoints_pageviews/userpoints_pageviews.install
+END

@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views
+END
+notifications_views.info
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views.info
+END
+notifications_views_handler_argument_subscription_type.inc
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_argument_subscription_type.inc
+END
+notifications_views_handler_field_subscription_type.inc
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_field_subscription_type.inc
+END
+notifications_views_handler_filter_perm.inc
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_filter_perm.inc
+END
+notifications_views_handler_filter_subscription_type.inc
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_filter_subscription_type.inc
+END
+notifications_views_handler_field_subscription_interval.inc
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_field_subscription_interval.inc
+END
+notifications_views_handler_filter_subscription_interval.inc
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_filter_subscription_interval.inc
+END
+notifications_views.module
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views.module
+END
+notifications_views_handler_field_body.inc
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_field_body.inc
+END
+notifications_views_handler_relationship.inc
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_relationship.inc
+END
+notifications_views_handler_field_delete_link.inc
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_field_delete_link.inc
+END
+notifications_views_handler_filter_subscription_send_method.inc
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_filter_subscription_send_method.inc
+END
+notifications_views_handler_argument_autocomplete.inc
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/notifications/notifications_views/notifications_views_handler_argument_autocomplete.inc
+END

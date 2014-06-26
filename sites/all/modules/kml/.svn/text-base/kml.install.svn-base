@@ -1,0 +1,43 @@
+<?php
+// $Id$
+
+/** Table to store 'KML' node type. */
+function kml_schema() {
+  $schema['kml'] = array(
+    'fields' => array(
+      'vid' => array(
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE, 
+        'default' => 0,
+      ),
+      'nid' => array(
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE, 
+        'default' => 0,
+      ),
+      'kml_file' => array(
+        'type' => 'varchar',
+        'length' => 127,
+        'not null' => true
+      )
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+    'primary key' => array('vid'), 
+  );
+
+  return $schema;
+}
+
+/** Create required tables. */
+function kml_install() {
+  drupal_install_schema('kml');
+}
+
+/** Remove un-required tables. */
+function kml_uninstall() {
+  drupal_uninstall_schema('kml');
+}

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/akshens/!svn/ver/463/trunk/akshenweb/sites/all/modules/kml
+END
+kml.module
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/akshens/!svn/ver/463/trunk/akshenweb/sites/all/modules/kml/kml.module
+END
+kml_parser.inc
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/kml/kml_parser.inc
+END
+kml.install
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/kml/kml.install
+END
+kml_gmap.tpl.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/kml/kml_gmap.tpl.php
+END
+kml.info
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/kml/kml.info
+END
+kml.js
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/kml/kml.js
+END

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging
+END
+messaging.store.inc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/messaging.store.inc
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/LICENSE.txt
+END
+messaging.module
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/messaging.module
+END
+messaging.install
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/messaging.install
+END
+CHANGELOG.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/CHANGELOG.txt
+END
+messaging.mail.inc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/messaging.mail.inc
+END
+messaging.info
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/messaging.info
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/README.txt
+END
+messaging.admin.inc
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/akshens/!svn/ver/422/trunk/akshenweb/sites/all/modules/messaging/messaging.admin.inc
+END

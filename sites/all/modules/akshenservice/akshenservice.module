@@ -1,0 +1,296 @@
+<?php
+
+/*
+* Implementation of hook_disable()
+* Perform necessary actions before module is disabled. (like clear the services:methods cache)
+*/
+function akshenservice_disable() {
+  cache_clear_all('services:methods', 'cache');
+}
+/*
+* Implementation of hook_enable()
+* Perform necessary actions after module is enabled. (like clear the services:methods cache)
+*/
+function akshenservice_enable() {
+  cache_clear_all('services:methods', 'cache');
+}
+
+/*
+ * Implementation of hook_service()
+ * Required by all server modules
+ * Returns array defining all the methods available in the service
+ */
+function akshenservice_service() {
+  return array(
+    //akshen_messages.new
+    array(
+      '#method' => 'akshen_messages.new',
+      '#callback' => 'akshen_messages_new',
+      '#access callback'  => 'akshen_messages_get_access',
+      '#args' => array(
+        array(
+          '#name' => 'phoneID',
+          '#type' => 'int',
+          '#description' => 'needs phone id = number as int e.g. 5202223344'
+        )
+      ),
+      '#return' => 'array',
+      '#help' => t('Returns akshen messages that need to be sent'),
+    ),
+    // akshen_messages.update
+    array(
+      '#method'           => 'akshen_messages.update',
+      '#callback'         => 'akshen_messages_update',
+      '#access callback'  => 'akshen_messages_get_access',
+      '#args'             => array(
+        array(
+          '#name'         => 'nids',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('A list of nid, statusmessages to update, e.g. 2340, Received5202334455, ...')),
+      ),
+      '#return'           => 'int',
+      '#help'             => t('Returns 1 for success, 0 for failure')
+      ),
+    // akshen_messages.insert
+    array(
+      '#method'           => 'akshen_messages.insert',
+      '#callback'         => 'akshen_messages_insert',
+      '#access callback'  => 'akshen_messages_get_access',
+      '#args'             => array(
+        array(
+          '#name'         => 'destination',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('enter the phone number that the incoming messages were received on e.g. 5202334455')),
+        array(
+          '#name'         => 'froms',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('enter the from phone numbers delimited by commas, e.g. 5202451787,6203334455,...')),
+        array(
+          '#name'         => 'received_times',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('enter the datetimes the messages were received delimited by commas, e.g. YYYYmmddHHii,YYYYmmddHHii, ...')),
+        array(
+          '#name'         => 'messageTexts',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('enter messageTexts separated by ">>>"')),
+      ),
+      '#return'           => 'string',
+      '#help'             => t('Inserts incoming messages into akshen_messages table')
+      ),
+    // akshen_messages.callstoakshen
+    array(
+      '#method'           => 'akshen_messages.callstoakshen',
+      '#callback'         => 'akshen_messages_callstoakshen',
+      '#access callback'  => 'akshen_messages_get_access',
+      '#args'             => array(
+        array(
+          '#name'         => 'last_date',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('Date u want them from as string e.g. Y-m-d H:i:s')),
+      ),
+      '#return'           => 'array',
+      '#help'             => t('Returns Calls to Akshen since last_date')
+      ),
+    // akshen_messages.ask
+    array(
+      '#method'           => 'akshen_messages.ask',
+      '#callback'         => 'akshen_messages_ask',
+      '#access callback'  => 'akshen_messages_get_access',
+      '#args'             => array(
+        array(
+          '#name'         => 'latitude',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('latitude value e.g. 31.842566')),
+        array(
+          '#name'         => 'longitude',
+          '#type'         => 'string',
+          '#optional'     => FALSE, 
+          '#description'  => t('longitude value e.g. -110.387878')),
+      ),
+      '#return'           => 'array',
+      '#help'             => t('Returns proximal content')
+      ),
+  );
+}
+
+
+/**
+ * Check if the user has the permission
+ *
+ * @return
+ *   Boolean. TRUE if the user has view access.
+ */
+function akshen_messages_get_access() {
+  global $user;
+  return (user_access('load node data'));
+}
+
+
+/**
+ * Callback for "akshenmessages.new"
+ * We need to include the fields argument and set a default value because
+ * it is optional,
+ * We do not need to include an API key or SESSID field if these are enabled
+ * for Services.  These arguments are handled by Services transparently and
+ * stripped before we reach this callback.
+ */
+function akshen_messages_new($phoneID) {
+  	$newStatusMessage = "GaveToPhone" . $phoneID;
+ 	//watchdog('newStatusMessage', $newStatusMessage, NULL, WATCHDOG_NOTICE);
+
+ 	//first mark up to 20 messages with status = New to status = newStatusMessage
+ 	$updateQuery = "UPDATE content_type_akshen_message SET field_status_value = '" . $newStatusMessage . "' WHERE field_status_value = 'New' limit 10";
+ 	$result1 = db_query($updateQuery);
+	$fieldstext = "nid, title, field_destination, field_start, field_end";
+	$fields = explode(", ", $fieldstext);
+	$query = "SELECT n.nid FROM node n INNER JOIN content_type_akshen_message ctam  ON ctam.nid = n.nid WHERE n.type='akshen_message' AND ctam.field_status_value = '" . $newStatusMessage . "'";
+	//watchdog('query', $query, NULL, WATCHDOG_NOTICE);
+	$result = db_query($query);
+	$nodes = array();
+	while ($node = db_fetch_object($result)) {
+		// services_node_load filters a node and returns only the requested fields.
+		$nodes[] = services_node_load(node_load($node->nid), $fields);
+	}
+	  
+	return $nodes;
+}
+
+//$nids = array()
+function akshen_messages_update($args){
+	//watchdog('nids0', $data[0], NULL, WATCHDOG_NOTICE);
+	//watchdog('nids1', $data[1], NULL, WATCHDOG_NOTICE);
+	$data = explode(",", $args);
+	$success = 1;
+	for ($i=0; $i < count($data); $i++) {
+		//watchdog('i = ', $i, NULL, WATCHDOG_NOTICE);
+		//watchdog('i + 1 = ', $i + 1, NULL, WATCHDOG_NOTICE);
+		$now = time();
+		if ($data[$i] != "") {
+			$query = "UPDATE content_type_akshen_message SET field_status_value = '" . $data[$i + 1] . "', field_timesent_value = '" . $now . "' WHERE nid = " . $data[$i];
+			$result = db_query($query);
+			if (!$result) $success = 0;
+			$i++;
+		}
+	}
+	if ($success) {
+		watchdog('Akshen Service', t("Updated Akshen Messages successfully"), NULL, WATCHDOG_NOTICE);
+	} else {
+		watchdog('Akshen Service', t("Failed to update Akshen Messages"), NULL, WATCHDOG_NOTICE);
+	}
+	return $success;
+}
+
+
+
+/**
+ * Callback for "akshenmessages.callstoakshen"
+ *
+ * We do not need to include an API key or SESSID field if these are enabled
+ * for Services.  These arguments are handled by Services transparently and
+ * stripped before we reach this callback.
+ */
+function akshen_messages_callstoakshen($last_date) {
+  //below, akshenargs[1] should be the date time 'Y-m-d H:i:s' from which to get more recent posts
+    $fieldstext = "nid, title";
+	$fields = explode(", ", $fieldstext);
+  	//$mysqldate = date( 'Y-m-d H:i:s', $last_date[1] );
+  	$result = db_query("SELECT node.nid FROM node node LEFT JOIN content_type_calls_to_akshen cta ON node.vid = cta.vid WHERE (node.type in ('calls_to_akshen')) AND (node.status <> 0) AND (node.created > '" . $last_date[1] . "') ORDER BY cta.field_timeofevent_value DESC");
+  
+  
+  $nodes = array();
+  while ($node = db_fetch_object($result)) {
+    // services_node_load filters a node and returns only the requested fields.
+    $nodes[] = services_node_load(node_load($node->nid), $fields);
+  }
+  
+  // return the array result
+  return $nodes;
+}
+
+
+
+/**
+ * Callback for "akshenmessages.insert"
+ *
+ * Insert new akshen_message records with status = Incoming
+ */
+function akshen_messages_insert($destination, $froms, $datetimes, $messages) {
+	$result = 0;
+	$fromsArr = explode(",", $froms);
+	$startTimesArr = explode(",", $datetimes);
+  	$messagesArr = explode(">>>", $messages);
+  	for ($i=0; $i < count($fromsArr); $i++) {
+  	  if ($fromsArr[$i] != "") {
+		  $edit = array();
+		  $edit['type'] = 'akshen_message';
+		  $node_type_default = variable_get('node_options_' . $edit['type'], array('status', 'promote', ));
+		  $edit['uid'] = '146';
+		  $edit['name'] = 'dparizek';
+		  $edit['promote'] = in_array('promote', $node_type_default);
+		  $edit['comment'] = variable_get('comment_' . $edit['type'], 2);
+		  $edit['revision'] = in_array('revision', $node_type_default);
+		  $edit['format'] = FILTER_FORMAT_DEFAULT;
+		  $edit['status'] = '1';
+		  $edit['title'] = $messagesArr[$i];
+		  $edit['field_destination'][0]['value'] = $destination;
+		  $edit['field_from'][0]['value'] = $fromsArr[$i];
+		  $edit['field_start'][0]['value'] = $startTimesArr[$i];
+		  $edit['field_status'][0]['value'] = "Incoming";
+		  $node = node_submit($edit);
+		  node_save($node);
+		  $result = 1;
+  	  }
+  	}
+    return $result;
+}
+
+
+/**
+ * Callback for "akshenmessages.ask"
+ *
+ * We do not need to include an API key or SESSID field if these are enabled
+ * for Services.  These arguments are handled by Services transparently and
+ * stripped before we reach this callback.
+ */
+function akshen_messages_ask($lat, $lon) {
+  	//lat 31.842566
+  	//long -110.387878
+  	$fieldstext = "nid, title, location";
+	$fields = explode(", ", $fieldstext);
+	
+  	$distance_meters = 160934; //approx 100 miles
+    $latrange = earth_latitude_range($lon, $lat, $distance_meters);
+    $lonrange = earth_longitude_range($lon, $lat, $distance_meters);
+  
+ 	// Add MBR check (always).
+    // In case we go past the 180/-180 mark for longitude.
+    if ($lonrange[0] > $lonrange[1]) {
+      $where = "location.latitude > %f AND location.latitude < %f AND ((location.longitude < 180 AND location.longitude > %f) OR (location.longitude < %f AND location.longitude > -180))";
+    }
+    else {
+      $where = "location.latitude > %f AND location.latitude < %f AND location.longitude > %f AND location.longitude < %f";
+    }
+    $where = sprintf($where, $latrange[0], $latrange[1], $lonrange[0], $lonrange[1]);
+    
+    // Add radius check.
+    $where .= " AND ((IFNULL(ACOS(0.849500974145*COS(RADIANS(location.latitude))*(-0.348373739885*COS(RADIANS(location.longitude)) + -0.937355715488*SIN(RADIANS(location.longitude))) + 0.52758704962*SIN(RADIANS(location.latitude))), 0.00000)*6372162.94708) < 160934.7) ORDER BY location_distance ASC LIMIT 20";
+
+  	$query = "SELECT location.lid AS lid, node.title AS node_title, node.nid AS node_nid, ((IFNULL(ACOS(0.849500974145*COS(RADIANS(location.latitude))*(-0.348373739885*COS(RADIANS(location.longitude)) + -0.937355715488*SIN(RADIANS(location.longitude))) + 0.52758704962*SIN(RADIANS(location.latitude))), 0.00000)*6372162.94708))/160934.4 AS location_distance, location.latitude AS location_latitude, location.longitude AS location_longitude FROM location location  LEFT JOIN location_instance location_instance ON location.lid = location_instance.lid LEFT JOIN node node ON location_instance.vid = node.vid WHERE " . $where;
+  	
+  	$result = db_query($query);
+	$results = array();
+	while ($aResult = db_fetch_object($result)) {
+		// services_node_load filters a node and returns only the requested fields.
+		$results[] = $aResult;
+	}
+	  
+	return $results;
+	
+}

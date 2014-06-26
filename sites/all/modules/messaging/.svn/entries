@@ -1,0 +1,169 @@
+10
+
+dir
+466
+http://ccp.arl.arizona.edu/svn/akshens/trunk/akshenweb/sites/all/modules/messaging
+http://ccp.arl.arizona.edu/svn/akshens
+
+
+
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e2268d68-9d0b-4111-b000-d98666bd37a8
+
+messaging_mail
+dir
+
+messaging.store.inc
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+f06184e04630c4eed1a9a00c09831d8b
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+translations
+dir
+
+messaging_xmpp
+dir
+
+messaging.install
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+40880bde88cf73bc32029c2ee7f1e11f
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+messaging_debug
+dir
+
+messaging_mime_mail
+dir
+
+messaging_simple
+dir
+
+messaging_twitter
+dir
+
+messaging_sms
+dir
+
+LICENSE.txt
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+998ed0c116c0cebfcd9b2107b0d82973
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+messaging.module
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+f9da9c83fe7cc9adbc4b4038a1e56fb1
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+tests
+dir
+
+CHANGELOG.txt
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+cff2ed81afb84c24dbcb2cc352e9069a
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+messaging.mail.inc
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+d3c3676705c9aae54859969a1cce56db
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+messaging.info
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+0b692c03f35bc817e40f26469420f7c8
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+README.txt
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+4b9a4a162959ee1259f0a671d2f86378
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+messaging.admin.inc
+file
+
+
+
+
+2011-03-07T21:31:20.000000Z
+c4e094a9df0451a6aa35cd6daf0aefab
+2011-03-07T21:30:55.142121Z
+422
+dparizek
+
+messaging_phpmailer
+dir
+
+messaging_privatemsg
+dir
+

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema/LICENSE.txt
+END
+schema.module
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema/schema.module
+END
+schema.install
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema/schema.install
+END
+schema_util.inc
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema/schema_util.inc
+END
+schema.info
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema/schema.info
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema/README.txt
+END
+schema.drush.inc
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/akshens/!svn/ver/283/trunk/akshenweb/sites/all/modules/schema/schema.drush.inc
+END

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist
+END
+CFPropertyList.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/CFPropertyList.php
+END
+CFType.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/CFType.php
+END
+PListException.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/PListException.php
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/LICENSE
+END
+CFBinaryPropertyList.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/CFBinaryPropertyList.php
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/.gitignore
+END
+CFTypeDetector.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/CFTypeDetector.php
+END
+IOException.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/IOException.php
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/akshens/!svn/ver/417/trunk/akshenweb/sites/all/libraries/cfpropertylist/README.md
+END

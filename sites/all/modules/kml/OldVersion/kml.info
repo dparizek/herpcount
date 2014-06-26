@@ -1,0 +1,5 @@
+; $Id$
+name = KML
+description = Displays KML files.
+core = 6.x
+package = Akshen

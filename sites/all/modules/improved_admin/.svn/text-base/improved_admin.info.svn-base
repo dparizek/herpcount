@@ -1,0 +1,17 @@
+; $
+name = Improved Admin
+description = Adds improved admin features
+dependencies[] = views
+package = Views
+core = 6.x
+
+version = "6.x-1.0-beta1"
+core = "6.x"
+project = "improved_admin"
+
+; Information added by drupal.org packaging script on 2010-12-09
+version = "6.x-1.0-beta1"
+core = "6.x"
+project = "improved_admin"
+datestamp = "1291931160"
+

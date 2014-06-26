@@ -1,0 +1,69 @@
+<?php
+
+/*
+* Implementation of hook_disable()
+* Perform necessary actions before module is disabled. (like clear the services:methods cache)
+*/
+function akshenmessageservice_disable() {
+  cache_clear_all('services:methods', 'cache');
+}
+/*
+* Implementation of hook_enable()
+* Perform necessary actions after module is enabled. (like clear the services:methods cache)
+*/
+function akshenmessageservice_enable() {
+  cache_clear_all('services:methods', 'cache');
+}
+
+/*
+ * Implementation of hook_service()
+ * Required by all server modules
+ * Returns array defining all the methods available in the service
+ */
+function akshenmessageservice_service() {
+  return array(
+    
+    /**
+     * recipe.all
+     * We define methods in hashed arrays
+     */
+    array(
+      
+      /**
+       * #method - defines the namespace and method name
+       * the namespace is everything before the last period, so you can do
+       * methods like 'recipe.lunch.all' where 'recipe.lunch' is the namespace,
+       * or service, and 'all' is the method
+       */
+      '#method' => 'akshenmessages.new',
+      '#callback' => 'akshenmessages_service_new',
+      '#return' => 'array',
+      '#help' => 'Returns a list of akshen messages to be sent'
+    )
+    
+  );
+}
+
+/**
+ * Callback for "akshenmessages.new"
+ * We need to include the fields argument and set a default value because
+ * it is optional,
+ * We do not need to include an API key or SESSID field if these are enabled
+ * for Services.  These arguments are handled by Services transparently and
+ * stripped before we reach this callback.
+ */
+function akshenmessages_service_new() {
+  $fieldstext = "nid,title,field_destination_value,field_start_value,field_end_value";
+  $fields = explode(",", $fieldstext);
+	
+  $result = db_query("SELECT n.nid FROM node n INNER JOIN content_type_akshen_message ctam WHERE n.type='akshen_message' AND ctam.field_status_value='New' AND (ctam.field_inorout_value = 'OUT' OR ctam.field_inorout_value = 'INANDOUT')");
+  
+  $nodes = array();
+  while ($node = db_fetch_object($result)) {
+    // services_node_load filters a node and returns only the requested fields.
+    $nodes[] = services_node_load(node_load($node->nid), $fields);
+  }
+  
+  // return the array result
+  return $nodes;
+}

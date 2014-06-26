@@ -1,0 +1,5 @@
+; $Id;
+name = WildCount Designer
+description = adds a visual designer for custom forms to be built into mobile applications
+package = WildCount
+core = 6.x

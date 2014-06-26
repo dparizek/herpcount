@@ -1,0 +1,290 @@
+<?php
+// $Id$ 
+
+define('VIEW_KML', 'view kml');
+define('CREATE_KML', 'create kml');
+define('EDIT_KML', 'edit kml');
+define('ADMIN_KML', 'admin kml');
+
+/** Define valid permission for this module. */
+function kml_perm() {
+  return array(VIEW_KML, CREATE_KML, EDIT_KML, ADMIN_KML);
+}
+
+/** Define access control list. */
+function kml_access($op, $node, $account) {
+  global $user;
+
+  switch ($op) {
+    case 'create':
+      return user_access(CREATE_KML, $account);
+    case 'update':
+    case 'delete':
+      if (user_access(EDIT_KML, $account) && $node->uid == $user->uid) {
+        // Users can edit their own KML file submissions.
+        return TRUE;
+      }
+ 
+      // Admins can edit any node. 
+      return user_access(ADMIN_KML, $account);
+    case 'view':
+      return user_access(VIEW_KML, $account);
+    default:
+      return FALSE;
+    }
+}
+
+/** Define node types used by this module. */
+function kml_node_info() {
+  return array(
+    'kml'          => array(
+      'name'        => 'KML',
+      'module'      => 'kml',
+      'description' => 'A KML file uploaded by a user.',
+      'has_title'   => TRUE,
+      'has_body'    => TRUE
+    )
+  );
+}
+
+/** Define create/edit form. */
+function kml_form(&$node, $form_state) {
+  $type = node_get_types('type', $node);
+  drupal_set_title(check_plain('Add a map'));
+  $form['#attributes']['enctype'] = 'multipart/form-data';
+  $form['title'] = array(
+    '#type'          => 'textfield',
+    '#title'         => check_plain($type->title_label),
+    '#required'      => TRUE,
+    '#default_value' => $node->title
+  );
+
+  if ($type->has_body) {
+    $form['body_field'] = node_body_field(
+      $node,
+      $type->body_label,
+      $type->min_word_count
+    );
+  }
+
+  if (!$node->nid) {
+    // These fields are only added when node is being created.
+    $form['kml_file'] = array(
+      '#type'        => 'file',
+      '#title'       => t('KML File'),
+      '#required'    => FALSE,
+      '#description' => t("Select a KML file '*.kml' to upload.")
+    );
+
+    // Use custom form validation!
+    $form['#validate'] = array('kml_node_form_validate');
+  }
+  
+  return $form;
+}
+
+/** Validate create/edit form. */
+function kml_node_form_validate($form, &$form_state) {
+  
+  if($form_state['values']['field_kml_from_xml'][0]['value']=="")
+  { 
+	  $validators = array (
+		'file_validate_extensions' => array('kml')
+	  );
+
+	  $file = file_save_upload('kml_file', $validators);
+	  if (!$file) {
+		form_set_error('upload', 'You must select a .kml file to upload.');
+	  } else {
+		$form_state['values']['kml_file'] = $file;
+	  }
+
+  }
+
+}
+
+/** Saves a KML File. */
+function _save_kml_file(&$node) {
+  $dest_name = $node->nid . '.kml';
+  $dest_path = file_directory_path() . '/' . $dest_name;
+  if (file_move($node->kml_file, $dest_path, FILE_EXISTS_REPLACE)) {
+    file_set_status($node->kml_file, FILE_STATUS_PERMANENT);
+    $node->kml_file = $dest_name;
+    return TRUE;
+  } else {
+  
+    /*If the kml is from xmlrpc then assign the value of field_kml_from_xml to kml_file*/
+     /* print_r($node->field_kml_from_xml);      */
+     if($node->field_kml_from_xml[0]['view'])
+     {
+        $node->kml_file = $node->field_kml_from_xml[0]['view'];
+        return TRUE;
+     } 
+    return FALSE;
+  }
+}
+
+/** Create a KML node. */
+function kml_insert($node) {
+  if (_save_kml_file($node)) {
+    if (module_exists('userpoints')) {
+      $summary = kml_assign_user_points($node);
+      $node->body = $node->body . $summary;
+      node_save($node);
+    }
+
+    db_query(
+      "INSERT INTO {kml} (vid, nid, kml_file)"
+        . "VALUES (%d, %d, '%s')",
+      $node->vid,
+      $node->nid,
+      trim($node->kml_file)
+    );
+
+  } else {
+    // TODO: proper error handling
+    echo "Upload Failed !!";
+    exit;
+  }
+}
+
+/** Assign user points based on content of KML. */
+
+function kml_assign_user_points($node) {
+  require_once drupal_get_path('module', 'kml') . '/kml_parser.inc';
+
+  // [0] = avg/speed cutoff (mph)
+  // [1] = point multiplier (points * miles)
+  $point_ranges = array(
+      array('cutoff' => 15, 'multiplier' => 2),
+  );
+
+  // Default multiplier for out-of-range avg speeds.
+  $default_multiplier = 0.025;
+
+  // Number of user points to award for waypoints.
+  $waypoint_multiplier = 1;
+
+  $userPoints = 0;
+  $trips = 0;
+  $dist = 0;
+  $parser = new KmlParser();
+  $parser->kmlPath = file_directory_path() . '/' . $node->kml_file;
+  $stats = $parser->calcDistAndSpeed();
+  foreach ($stats['groups'] as $group) {
+    if (!$group['distance']) {
+        // A trip without a distance is really a waypoint.
+        $stats['waypoints'] += 1;
+    }
+
+    $trips += 1;
+    $dist += $group['distance'];    
+
+    $found = false;
+    foreach ($point_ranges as $range) {
+      if ($group['speed'] <= $range['cutoff']) {
+        $userPoints += $range['multiplier'] * $group['distance'];
+        $found = true;
+        break;
+      } 
+    }
+
+    if (!$found) {
+      // Average speed is out-of-range
+      $userPoints += $default_multiplier * $group['distance'];
+    }
+  }
+
+  $userPoints += $stats['waypoints'] * $waypoint_multiplier;
+
+  if ((!$trips) || (!$dist)) {
+    $summary = "Marked {$stats['waypoints']} waypoints.";
+  } else {
+    $summary ="Travelled $dist miles during $trips trips and marked {$stats['waypoints']} waypoints.";
+  }
+
+  userpoints_userpointsapi(ceil($userPoints));
+
+  return $summary;
+}
+
+/** Delete a node. */
+function kml_delete($node) {
+  db_query(
+    'DELETE FROM {kml} WHERE nid = %d',
+    $node->nid
+  );
+}
+
+/** Loads node from DB. */
+function kml_load($node) {
+  $result = db_query(
+    'SELECT kml_file FROM {kml} WHERE vid = %s',
+    $node->vid
+  );
+  return db_fetch_object($result);
+}
+
+/** Define page view. */
+function kml_view($node, $teaser=FALSE, $page=FALSE) {
+  $node = node_prepare($node, $teaser);
+
+  if ($page) {
+    // Setup breadcrumb naviagtion.
+    drupal_set_breadcrumb(array(
+      l(t('Home'), ''),
+      l(t('KML'), 'kml_list'),
+    ));
+  }
+
+  // JS to set gmap js object.
+  //drupal_add_js(drupal_get_path('module', 'kml') . '/kml.js', 'module');
+
+//  [gmap markers=blue::41.902277040963696,-87.6708984375 |zoom=5 |center=42.94033923363183,-88.857421875 |width=300px |height=200px |control=Small |type=Map]
+
+//[gmap |overlay=kml:http://www................../gcs.kml |width=700px |height=500px |control=Small |type=Earth |behavior=+autozoom +notype]
+
+//
+//[gmap |overlay=kml:http://gcrc.uga.edu/public/uploads/GCE_site_boundaries_20090724T114716.kml |zoom=11 |width=100% |height=500px |control=Small |type=Map]
+
+//[gmap |overlay=kml:http://akshendemo.arl.arizona.edu/testakshen/sites/default/files/GeoKnectMap1301015691300.kml |zoom=11 |width=100% |height=500px |control=Small |type=Map]
+
+//[gmap |overlay=kml:http://parizek.com/daveMaranaFarm.kml |zoom=10 |width=100% |height=500px |control=Small |type=Map]
+
+//[gmap |overlay=kml:http://parizek.com/spaces.kml |zoom=10 |width=100% |height=500px |control=Small |type=Map]
+
+//[gmap |overlay=kml:http://parizek.com/maptranning.kml |overlay=kml:http://parizek.com/simple2.kml |zoom=10 |width=100% |height=500px |control=Small |type=Map]
+
+//[gmap |overlay=kml:http://akshenweb.org/sites/default/files/GeoKnectMap1301015691300.kml |zoom=11 |width=100% |height=500px |control=Small |type=Map]
+
+//http://parizek.com/daveMaranaFarm.kml
+
+  $kml_url = file_create_url(file_directory_path() . '/' . $node->kml_file);
+  
+  if ($teaser) {
+    $default_macro = "[gmap |overlay=kml:" . $kml_url . " |zoom=11 |center=32.172125269187966,-110.9454345703125 |width=100% |height=300px |control=Small |type=Map]";
+  } else {
+  	// TODO: this should be an admin setting instead of hard-coded!!
+  	$default_macro = "[gmap |overlay=kml:" . $kml_url . " |zoom=11 |center=32.172125269187966,-110.9454345703125 |width=100% |height=500px |control=Small |type=Map]";
+  	
+  }
+  $map_info = gmap_parse_macro($default_macro);
+  $node->content['kml_map'] = array(
+    '#value' => theme('kml_gmap', theme_gmap($map_info)),
+    '#weight' => 1
+  );
+
+  return $node;
+}
+
+/** Define themes to use. */
+function kml_theme() {
+  return array (
+    'kml_gmap' => array(
+      'template'  => 'kml_gmap',
+      'arguments' => array(
+        'gmap_markup' => NULL,
+      )
+    )
+  );
+}

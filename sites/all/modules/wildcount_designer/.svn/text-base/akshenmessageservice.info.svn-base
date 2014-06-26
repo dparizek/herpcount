@@ -1,0 +1,5 @@
+; $Id;
+name = Akshen Message Service
+description = Services service that provides akshen messages that need to be sent
+package = Akshen
+core = 6.x

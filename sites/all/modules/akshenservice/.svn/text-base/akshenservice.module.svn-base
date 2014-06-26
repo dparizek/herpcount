@@ -1,0 +1,92 @@
+<?php
+
+/*
+* Implementation of hook_disable()
+* Perform necessary actions before module is disabled. (like clear the services:methods cache)
+*/
+function akshenservice_disable() {
+  cache_clear_all('services:methods', 'cache');
+}
+/*
+* Implementation of hook_enable()
+* Perform necessary actions after module is enabled. (like clear the services:methods cache)
+*/
+function akshenservice_enable() {
+  cache_clear_all('services:methods', 'cache');
+}
+
+/*
+ * Implementation of hook_service()
+ * Required by all server modules
+ * Returns array defining all the methods available in the service
+ */
+function akshenservice_service() {
+  return array(
+    
+    /**
+     * We define methods in hashed arrays
+     */
+    array(
+      
+      /**
+       * #method - defines the namespace and method name
+       * the namespace is everything before the last period, so you can do
+       * methods like 'recipe.lunch.all' where 'recipe.lunch' is the namespace,
+       * or service, and 'all' is the method
+       */
+      '#method' => 'akshen.all',
+      '#callback' => 'akshen_service_all',
+      '#args' => array(
+        array(
+          '#name' => 'akshenargs',
+          '#type' => 'array',
+          '#optional' => true,
+          '#description' => 'Custom args, see module docs.'
+        )
+      ),
+      '#return' => 'array',
+      '#help' => 'Returns magical things depending on args, see module docs'
+    )
+    
+  );
+}
+
+/**
+ * Callback for "akshenmessages.new"
+ * We need to include the fields argument and set a default value because
+ * it is optional,
+ * We do not need to include an API key or SESSID field if these are enabled
+ * for Services.  These arguments are handled by Services transparently and
+ * stripped before we reach this callback.
+ */
+function akshen_service_all($akshenargs = array()) {
+
+  $baseCommand = $akshenargs[0];
+  //for each different baseCommand you want to serve, define the fields you want and the sql query.  So this can handle any kind of aggregated node listing.
+  
+  if ($baseCommand == 'akshenmessages') {
+    $colstext = "nid, title, field_destination_value, field_start_value, field_end_value";
+  	$cols = explode(", ", $fieldstext);
+  	$result = db_query("SELECT n.nid FROM node n INNER JOIN content_type_akshen_message ctam WHERE n.type='akshen_message' AND ctam.field_status_value='New' AND (ctam.field_inorout_value = 'OUT' OR ctam.field_inorout_value = 'INANDOUT')");
+  	}
+  
+  
+  //below, akshenargs[1] should be the date time 'Y-m-d H:i:s' from which to get more recent posts
+  if ($baseCommand == 'callstoakshen') {
+    $colstext = "title";
+  	$cols = explode(", ", $fieldstext);
+  	//$mysqldate = date( 'Y-m-d H:i:s', $akshenargs[1] );
+  	$result = db_query("SELECT node.nid AS nid, node.title AS node_title, node_data_field_timeofevent.field_timeofevent_value AS node_data_field_timeofevent_field_timeofevent_value, node_data_field_timeofevent.field_timeofevent_value2 AS node_data_field_timeofevent_field_timeofevent_value2, node.type AS node_type, node.vid AS node_vid FROM node node  LEFT JOIN content_type_calls_to_akshen node_data_field_timeofevent ON node.vid = node_data_field_timeofevent.vid WHERE (node.type in ('calls_to_akshen')) AND (node.status <> 0) AND (node.created > '" . $akshenargs[1] . "') ORDER BY node_data_field_timeofevent_field_timeofevent_value DESC");
+  	}
+  	
+  	
+  
+  $nodes = array();
+  while ($node = db_fetch_object($result)) {
+    // services_node_load filters a node and returns only the requested fields.
+    $nodes[] = services_node_load(node_load($node->nid), $fields);
+  }
+  
+  // return the array result
+  return $nodes;
+}

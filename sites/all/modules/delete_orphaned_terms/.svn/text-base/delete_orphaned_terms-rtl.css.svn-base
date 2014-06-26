@@ -1,0 +1,8 @@
+
+#edit-delete-orphaned-terms-whitelist-wrapper,
+#edit-delete-orphaned-terms-blacklist-wrapper,
+#edit-delete-orphaned-terms-failsafe-wrapper,
+#edit-delete-orphaned-terms-failsafe-all-wrapper {
+  float: right;
+  width: 50%;
+}

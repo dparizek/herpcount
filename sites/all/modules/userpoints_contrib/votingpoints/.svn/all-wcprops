@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/akshens/!svn/ver/307/trunk/akshenweb/sites/all/modules/userpoints_contrib/votingpoints
+END
+votingpoints.rules.inc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/votingpoints/votingpoints.rules.inc
+END
+votingpoints.rules_sample.inc
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/votingpoints/votingpoints.rules_sample.inc
+END
+votingpoints.module
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/votingpoints/votingpoints.module
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/votingpoints/README.txt
+END
+votingpoints.info
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/akshens/!svn/ver/226/trunk/akshenweb/sites/all/modules/userpoints_contrib/votingpoints/votingpoints.info
+END

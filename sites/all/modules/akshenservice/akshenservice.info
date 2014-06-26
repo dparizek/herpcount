@@ -1,0 +1,5 @@
+; $Id;
+name = Akshen Service
+description = Services service that provides lots of different content streams based on args sent - so module docs
+package = Akshen
+core = 6.x

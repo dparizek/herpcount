@@ -1,0 +1,11 @@
+<?php
+// $Id: improved_admin.module,v 1.1 2010/12/09 21:36:06 dustincurrie Exp $
+
+/**
+ * Implementation of hook_views_api().
+ */
+function improved_admin_views_api() {
+  return array(
+    'api' => 2.0,
+  );
+}
